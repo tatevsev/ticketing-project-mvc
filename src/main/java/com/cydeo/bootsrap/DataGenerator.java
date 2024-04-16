@@ -24,8 +24,8 @@ public class DataGenerator implements CommandLineRunner {
 
         //this run method will execute before anything when you start application
         RoleDTO adminRole =  new RoleDTO(1L,"Admin");
-        RoleDTO employeeRole =  new RoleDTO(1L,"Employee");
-        RoleDTO managerRole =  new RoleDTO(1L,"Manager");
+        RoleDTO employeeRole =  new RoleDTO(2L,"Employee");
+        RoleDTO managerRole =  new RoleDTO(3L,"Manager");
         //create some roles and put in the DB(map)
 
         roleService.save(adminRole);
