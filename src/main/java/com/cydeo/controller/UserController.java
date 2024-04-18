@@ -49,11 +49,30 @@ public class UserController {
         //user object ${user}
         model.addAttribute("user",userService.findById(username));
         model.addAttribute("roles",roleService.findAll());
-        model.addAttribute("user",userService.findAll());
+        model.addAttribute("users",userService.findAll());
 
         return "/user/update";
     }
 
+
+    @PostMapping("/update")
+    public String updateUser(@ModelAttribute("user") UserDTO user){
+
+
+            userService.update(user);
+
+        return "redirect:/user/create";
+    }
+
+    @GetMapping("/delete/{username}")
+    public String deleteUser(@PathVariable("username") String username){
+
+        userService.deleteById(username);
+
+        return "redirect:/user/create";
+
+
+    }
 
 
 
