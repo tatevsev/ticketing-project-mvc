@@ -6,6 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
+//@ConfigurationPropertiesBinding once implementing Converter, we don't need annotation
 public class UserDtoConverter  implements Converter<String, UserDTO> {
 
     UserService userService;
