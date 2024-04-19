@@ -24,7 +24,7 @@ public class ProjectController {
     public String createProject(Model model){
 
         model.addAttribute("project",new ProjectDTO());
-        model.addAttribute("managers",userService.findAll());
+        model.addAttribute("managers",userService.findManagers());
         model.addAttribute("projects",projectService.findAll());
 
         return "/project/create";
@@ -40,15 +40,39 @@ public class ProjectController {
     }
 
     @GetMapping("/delete/{projectCode}")
-    public String deleteProject(@PathVariable("projectCode") String projectcode){
+    public String deleteProject(@PathVariable("projectCode") String projectCode){
 
-        projectService.deleteById(projectcode);
+        projectService.deleteById(projectCode);
         return "redirect:/project/create";
     }
 
 
+    @GetMapping("/complete/{projectCode}")
+    public String completeProject(@PathVariable("projectCode") String projectCode){
+
+        projectService.complete(projectService.findById(projectCode));
 
 
+        return "redirect:/project/create";
+    }
+
+    @GetMapping("/update/{projectCode}") //we are getting data , not posting therefore getmapping
+    public String editProject(@PathVariable("projectCode") String projectCode, Model model){
+        //user object ${user}
+        model.addAttribute("project",projectService.findById(projectCode));
+        model.addAttribute("projects",projectService.findAll());
+        model.addAttribute("managers",userService.findManagers());
+
+        return "/project/update";
+    }
+
+    @PostMapping("/update")
+    public String updateProject(@ModelAttribute("project") ProjectDTO project){
+
+        projectService.update(project);
+
+        return "redirect:/project/create";
+    }
 
 
 

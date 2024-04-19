@@ -38,7 +38,17 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> im
     @Override
     public void update(ProjectDTO object) {
 
+        if(object.getProjectStatus()==null){
+            object.setProjectStatus(findById(object.getProjectCode()).getProjectStatus());
+        }
+        //behind the scenes when we update the project html changes values by setters since we don't have an option to update the status of the project we need to assign it to it's previous values to avoid null pointer exception
+
         super.update(object.getProjectCode(),object);
+    }
+
+    @Override
+    public void complete(ProjectDTO project) {
+        project.setProjectStatus(Status.COMPLETED);
     }
 }
 
